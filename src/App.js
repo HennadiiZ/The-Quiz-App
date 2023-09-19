@@ -12,8 +12,21 @@ const initialState = {
 };
 
 function reducer(state, action) {
-  // switch (action.type) {
-  // }
+  switch (action.type) {
+    case 'dataReceived':
+      return {
+        ...state,
+        questions: action.payload,
+        status: 'ready',
+      };
+    case 'dataFailed':
+      return {
+        ...state,
+        status: 'error',
+      };
+    default:
+      throw new Error('unknown action');
+  }
 }
 
 function App() {
@@ -22,9 +35,16 @@ function App() {
   useEffect(() => {
     fetch('http://localhost:8000/questions')
       .then((res) => res.json())
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      // .then((res) => console.log(res))
+      // .then((res) => {
+      //   dispatch({ type: 'dataReceived', payload: res });
+      //   console.log('1', state);
+      // })
+      .then((res) => dispatch({ type: 'dataReceived', payload: res }))
+      .catch((err) => dispatch({ type: 'dataFailed', payload: err }));
   }, []);
+
+  console.log('2', state);
 
   return (
     <div className='App'>
