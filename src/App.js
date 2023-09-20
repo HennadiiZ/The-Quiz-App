@@ -13,6 +13,7 @@ const initialState = {
   // isLoading state
   status: 'loading', //state
   // states: 'loading', 'error', 'ready', 'active', 'finished' - it has nothing to do with useReducer
+  curIndex: 0,
 };
 
 function reducer(state, action) {
@@ -40,7 +41,7 @@ function reducer(state, action) {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  // const [{questions, status}, dispatch] = useReducer(reducer, initialState);
+  // const [{questions, status, curIndex}, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     fetch('http://localhost:8000/questions')
@@ -56,9 +57,9 @@ function App() {
 
   // console.log('2', state);
 
-  function startQuiz() {
-    dispatch({ type: 'startQuiz' });
-  }
+  // function startQuiz() {
+  //   dispatch({ type: 'startQuiz' });
+  // }
 
   return (
     <div className='App'>
@@ -68,13 +69,20 @@ function App() {
         {state.status === 'loading' && <Loader />}
         {state.status === 'error' && <Error />}
         {state.status === 'ready' && (
+          // <StartScreen
+          //   amountOfQuestions={state.questions.length}
+          //   startQuiz={startQuiz}
+          // />
           <StartScreen
             amountOfQuestions={state.questions.length}
-            startQuiz={startQuiz}
+            dispatch={dispatch}
           />
         )}
         {state.status === 'active' && (
-          <Question amountOfQuestions={state.questions.length} />
+          <Question
+            amountOfQuestions={state.questions.length}
+            questionData={state.questions[state.curIndex]}
+          />
         )}
       </Main>
     </div>
