@@ -9,22 +9,10 @@ export default function Question({
 }) {
   const { question, options, correctOption, points } = questionData;
 
-  //   if (answer === correctOption) {
-  //     // console.log('answer:', answer, '-', 'correctOption:', correctOption);
-  //     // console.log(' points:', points);
-  //     dispatch({ type: 'newAnswer', payload: points });
-  //   }
-  //   else {
-  //     console.log('answer:', answer, '-', 'correctOption:', correctOption);
-  //   }
-
   return (
     <div>
       <p>Question 1/{amountOfQuestions}</p>
-      <h4>
-        {question}
-        {/* {showResult && (showResult === 'Correct' ? 'Correct' : 'Wrong')} */}
-      </h4>
+      <h4>{question}</h4>
       <div className='options'>
         {options.map((option, index) => (
           <OptionToAnswer

@@ -52,38 +52,21 @@ function reducer(state, action) {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  // const [{questions, status, curIndex, answer, points}, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     fetch('http://localhost:8000/questions')
       .then((res) => res.json())
-      // .then((res) => console.log(res))
-      // .then((res) => {
-      //   dispatch({ type: 'dataReceived', payload: res });
-      //   console.log('1', state);
-      // })
       .then((res) => dispatch({ type: 'dataReceived', payload: res }))
       .catch((err) => dispatch({ type: 'dataFailed', payload: err }));
   }, []);
 
-  // console.log('2', state);
-
-  // function startQuiz() {
-  //   dispatch({ type: 'startQuiz' });
-  // }
-
   return (
     <div className='App'>
-      {/* <DateCounter /> */}
       <Header />
       <Main>
         {state.status === 'loading' && <Loader />}
         {state.status === 'error' && <Error />}
         {state.status === 'ready' && (
-          // <StartScreen
-          //   amountOfQuestions={state.questions.length}
-          //   startQuiz={startQuiz}
-          // />
           <StartScreen
             amountOfQuestions={state.questions.length}
             dispatch={dispatch}
