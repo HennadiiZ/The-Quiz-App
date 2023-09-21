@@ -1,14 +1,10 @@
-export default function OptionToAnswer({
-  option,
-  index,
-  onChooseOption,
-  showResult,
-}) {
-  return <p onClick={() => onChooseOption(index)}>{option}</p>;
-  //   return (
-  //     <p onClick={() => onChooseOption(index)}>
-  //       {option}
-  //       {showResult && (showResult === 'Correct' ? 'Correct' : 'Wrong')}
-  //     </p>
-  //   );
+export default function OptionToAnswer({ option, dispatch, index }) {
+  return (
+    <button
+      className='btn btn-option'
+      onClick={() => dispatch({ type: 'newAnswer', payload: index })}
+    >
+      {option}
+    </button>
+  );
 }

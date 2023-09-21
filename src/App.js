@@ -11,9 +11,9 @@ import Question from './components/Question';
 const initialState = {
   questions: [],
   // isLoading state
-  status: 'loading', //state
-  // states: 'loading', 'error', 'ready', 'active', 'finished' - it has nothing to do with useReducer
+  status: 'loading', //state // states: 'loading', 'error', 'ready', 'active', 'finished' - it has nothing to do with useReducer
   curIndex: 0,
+  answer: null,
 };
 
 function reducer(state, action) {
@@ -33,6 +33,11 @@ function reducer(state, action) {
       return {
         ...state,
         status: 'active',
+      };
+    case 'newAnswer':
+      return {
+        ...state,
+        answer: action.payload,
       };
     default:
       throw new Error('unknown action');
@@ -82,6 +87,9 @@ function App() {
           <Question
             amountOfQuestions={state.questions.length}
             questionData={state.questions[state.curIndex]}
+            dispatch={dispatch}
+            status={state.status}
+            answer={state.answer}
           />
         )}
       </Main>
