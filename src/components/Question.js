@@ -4,10 +4,19 @@ export default function Question({
   amountOfQuestions,
   questionData,
   dispatch,
-  status,
   answer,
+  earnedPoints,
 }) {
   const { question, options, correctOption, points } = questionData;
+
+  //   if (answer === correctOption) {
+  //     // console.log('answer:', answer, '-', 'correctOption:', correctOption);
+  //     // console.log(' points:', points);
+  //     dispatch({ type: 'newAnswer', payload: points });
+  //   }
+  //   else {
+  //     console.log('answer:', answer, '-', 'correctOption:', correctOption);
+  //   }
 
   return (
     <div>
@@ -23,6 +32,7 @@ export default function Question({
             answer={answer}
             index={index}
             option={option}
+            correctOption={correctOption}
             key={option}
           />
         ))}

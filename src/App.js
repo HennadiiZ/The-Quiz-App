@@ -14,6 +14,7 @@ const initialState = {
   status: 'loading', //state // states: 'loading', 'error', 'ready', 'active', 'finished' - it has nothing to do with useReducer
   curIndex: 0,
   answer: null,
+  points: 0,
 };
 
 function reducer(state, action) {
@@ -35,9 +36,14 @@ function reducer(state, action) {
         status: 'active',
       };
     case 'newAnswer':
+      const question = state.questions.at(state.curIndex); // state.questions[state.curIndex]
       return {
         ...state,
         answer: action.payload,
+        points:
+          question.correctOption === action.payload
+            ? state.points + question.points
+            : state.points,
       };
     default:
       throw new Error('unknown action');
@@ -46,7 +52,7 @@ function reducer(state, action) {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  // const [{questions, status, curIndex}, dispatch] = useReducer(reducer, initialState);
+  // const [{questions, status, curIndex, answer, points}, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     fetch('http://localhost:8000/questions')
@@ -88,8 +94,8 @@ function App() {
             amountOfQuestions={state.questions.length}
             questionData={state.questions[state.curIndex]}
             dispatch={dispatch}
-            status={state.status}
             answer={state.answer}
+            earnedPoints={state.points}
           />
         )}
       </Main>
