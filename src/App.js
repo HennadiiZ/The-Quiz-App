@@ -9,6 +9,7 @@ import StartScreen from './components/StartScreen';
 import Question from './components/Question';
 import Button from './components/Button';
 import Progress from './components/Progress';
+import EndScreen from './components/EndScreen';
 
 const initialState = {
   questions: [],
@@ -53,6 +54,11 @@ function reducer(state, action) {
         curIndex: state.curIndex + 1,
         answer: null,
       };
+    case 'endQuiz':
+      return {
+        ...state,
+        status: 'inactive',
+      };
     default:
       throw new Error('unknown action');
   }
@@ -68,7 +74,13 @@ function App() {
       .catch((err) => dispatch({ type: 'dataFailed', payload: err }));
   }, []);
 
-  console.log(state.points);
+  // console.log(state.points);
+
+  // console.log(state.curIndex);
+  // if (state.curIndex === state.questions.length) {
+  //   dispatch({ type: 'endQuiz' });
+  //   return;
+  // }
 
   return (
     <div className='App'>
@@ -84,7 +96,7 @@ function App() {
         )}
         {state.status === 'active' && (
           <>
-            <Progress curIndex={state.curIndex} />
+            <Progress dispatch={dispatch} curIndex={state.curIndex} />
             <Question
               amountOfQuestions={state.questions.length}
               questionData={state.questions[state.curIndex]}
@@ -95,6 +107,7 @@ function App() {
             <Button dispatch={dispatch} answer={state.answer} />
           </>
         )}
+        {state.status === 'inactive' && <EndScreen />}
       </Main>
     </div>
   );
