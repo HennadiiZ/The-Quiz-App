@@ -7,6 +7,7 @@ import Loader from './components/Loader';
 import Error from './components/Error';
 import StartScreen from './components/StartScreen';
 import Question from './components/Question';
+import Button from './components/Button';
 
 const initialState = {
   questions: [],
@@ -45,6 +46,13 @@ function reducer(state, action) {
             ? state.points + question.points
             : state.points,
       };
+    case 'nextQuestion':
+      return {
+        ...state,
+        // curIndex: state.curIndexs++,
+        curIndex: state.curIndexs + 1,
+        answer: null,
+      };
     default:
       throw new Error('unknown action');
   }
@@ -52,6 +60,7 @@ function reducer(state, action) {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { questions, status, curIndex, answer, points } = state; //
 
   useEffect(() => {
     fetch('http://localhost:8000/questions')
@@ -60,29 +69,58 @@ function App() {
       .catch((err) => dispatch({ type: 'dataFailed', payload: err }));
   }, []);
 
+  console.log(state.points);
+
   return (
     <div className='App'>
       <Header />
       <Main>
-        {state.status === 'loading' && <Loader />}
-        {state.status === 'error' && <Error />}
-        {state.status === 'ready' && (
+        {status === 'loading' && <Loader />}
+        {status === 'error' && <Error />}
+        {status === 'ready' && (
           <StartScreen
-            amountOfQuestions={state.questions.length}
+            amountOfQuestions={questions.length}
             dispatch={dispatch}
           />
         )}
         {state.status === 'active' && (
-          <Question
-            amountOfQuestions={state.questions.length}
-            questionData={state.questions[state.curIndex]}
-            dispatch={dispatch}
-            answer={state.answer}
-            earnedPoints={state.points}
-          />
+          <>
+            <Question
+              amountOfQuestions={questions.length}
+              questionData={state.questions[curIndex]}
+              dispatch={dispatch}
+              answer={answer}
+            />
+            <Button dispatch={dispatch} answer={answer} />
+          </>
         )}
       </Main>
     </div>
+
+    // <div className='App'>
+    //   <Header />
+    //   <Main>
+    //     {state.status === 'loading' && <Loader />}
+    //     {state.status === 'error' && <Error />}
+    //     {state.status === 'ready' && (
+    //       <StartScreen
+    //         amountOfQuestions={state.questions.length}
+    //         dispatch={dispatch}
+    //       />
+    //     )}
+    //     {state.status === 'active' && (
+    //       <>
+    //         <Question
+    //           amountOfQuestions={state.questions.length}
+    //           questionData={state.questions[state.curIndex]}
+    //           dispatch={dispatch}
+    //           answer={state.answer}
+    //         />
+    //         <Button dispatch={dispatch} answer={state.answer} />
+    //       </>
+    //     )}
+    //   </Main>
+    // </div>
   );
 }
 
