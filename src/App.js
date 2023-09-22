@@ -257,3 +257,115 @@ export default App;
 
 // const uniqueRandomNumbers = generateUniqueRandomNumbers();
 // console.log(uniqueRandomNumbers);
+
+//========================================================================= 3 - no args
+// function randomNumbersGenerator() {
+//   const fromNum = 1;
+//   const toNum = 10000;
+//   const uniqueNumbers = [];
+
+//   // Populate the array with numbers from 1 to 10000
+//   for (let i = fromNum; i <= toNum; i++) {
+//     uniqueNumbers.push(i);
+//   }
+
+//   // Fisher-Yates shuffle algorithm to randomize the array
+//   for (let i = uniqueNumbers.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [uniqueNumbers[i], uniqueNumbers[j]] = [uniqueNumbers[j], uniqueNumbers[i]];
+//   }
+
+//   return uniqueNumbers;
+// }
+
+// // Generate a list of 10,000 unique random numbers
+// const randomNumbers = randomNumbersGenerator();
+// console.log(randomNumbers);
+
+// function checkUniqueNumbers(arr) {
+//   const set = new Set(arr);
+//   return set.size === arr.length;
+// }
+// console.log(checkUniqueNumbers(randomNumbers));
+
+//========================================================================= 2
+
+// this function accepts three parameters, so the function is reusable and fexible.
+// function uniqueRandomNumsGenerator(count, min, max) {
+//   // Here we are checking if the amount of unique numbers is exactly that we want. In our case it's 10000
+//   if (count > max - min + 1) {
+//     console.log(
+//       `The quantity of unique numbers must be not less than ${count}.
+//       Now it's ${max - min}`
+//     );
+//     return;
+//   }
+
+//   const listOfUniqueNumbers = [];
+
+//   const allNumbers = Array.from(
+//     { length: max - min + 1 },
+//     (_, index) => index + min
+//   );
+
+//   // console.log('allNumbers', allNumbers);
+
+//   for (let i = 0; i < count; i++) {
+//     const randomIndex = Math.floor(Math.random() * allNumbers.length);
+//     listOfUniqueNumbers.push(allNumbers.splice(randomIndex, 1)[0]);
+//   }
+
+//   console.log(listOfUniqueNumbers);
+//   return listOfUniqueNumbers;
+// }
+
+// const quantityOfNums = 10000;
+// const fromNum = 1;
+// const toNum = 10000;
+
+// uniqueRandomNumsGenerator(quantityOfNums, fromNum, toNum);
+// // Fisher-Yates shuffle algorithm
+
+//==========
+//========================================
+
+// function randomNumbersGenerator() {
+//   const fromNum = 1;
+//   const toNum = 10000;
+//   const requiredCount = 10000;
+//   const uniqueNumbers = [];
+
+//   if (
+//     toNum - fromNum + 1 < requiredCount ||
+//     toNum - fromNum + 1 > requiredCount
+//   ) {
+//     console.log(
+//       `The quantity of unique numbers must be not less or more than ${requiredCount}.
+//       Now it's ${toNum - fromNum}`
+//     );
+//     return;
+//   }
+
+//   for (let i = fromNum; i <= toNum; i++) {
+//     uniqueNumbers.push(i);
+//   }
+
+//   for (let i = uniqueNumbers.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [uniqueNumbers[i], uniqueNumbers[j]] = [uniqueNumbers[j], uniqueNumbers[i]];
+//   }
+
+//   return uniqueNumbers;
+// }
+
+// const randomNumbers = randomNumbersGenerator();
+// console.log(randomNumbers);
+
+// function checkUniqueNumbers(arr) {
+//   if (!arr || arr.length === 0) {
+//     return;
+//   }
+//   const set = new Set(arr);
+//   return set.size === arr.length;
+// }
+// console.log(checkUniqueNumbers(randomNumbers));
