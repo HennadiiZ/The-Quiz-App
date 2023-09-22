@@ -49,8 +49,7 @@ function reducer(state, action) {
     case 'nextQuestion':
       return {
         ...state,
-        // curIndex: state.curIndexs++,
-        curIndex: state.curIndexs + 1,
+        curIndex: state.curIndex + 1,
         answer: null,
       };
     default:
