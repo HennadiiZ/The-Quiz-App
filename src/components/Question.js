@@ -16,9 +16,6 @@ export default function Question({
 
   return (
     <div>
-      <p>
-        Question {curIndex}/{amountOfQuestions}
-      </p>
       <h4>{question}</h4>
       <div className='options'>
         {options.map((option, index) => (

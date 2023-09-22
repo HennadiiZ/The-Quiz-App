@@ -74,14 +74,6 @@ function App() {
       .catch((err) => dispatch({ type: 'dataFailed', payload: err }));
   }, []);
 
-  // console.log(state.points);
-
-  // console.log(state.curIndex);
-  // if (state.curIndex === state.questions.length) {
-  //   dispatch({ type: 'endQuiz' });
-  //   return;
-  // }
-
   return (
     <div className='App'>
       <Header />
@@ -96,7 +88,11 @@ function App() {
         )}
         {state.status === 'active' && (
           <>
-            <Progress dispatch={dispatch} curIndex={state.curIndex} />
+            <Progress
+              dispatch={dispatch}
+              curIndex={state.curIndex}
+              amountOfQuestions={state.questions.length}
+            />
             <Question
               amountOfQuestions={state.questions.length}
               questionData={state.questions[state.curIndex]}
@@ -104,6 +100,7 @@ function App() {
               answer={state.answer}
               curIndex={state.curIndex}
             />
+
             <Button dispatch={dispatch} answer={state.answer} />
           </>
         )}
