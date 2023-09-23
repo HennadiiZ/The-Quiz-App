@@ -10,6 +10,7 @@ import Question from './components/Question';
 import Button from './components/Button';
 import Progress from './components/Progress';
 import EndScreen from './components/EndScreen';
+import Timer from './components/Timer';
 
 const initialState = {
   questions: [],
@@ -126,12 +127,15 @@ function App() {
               curIndex={state.curIndex}
             />
 
-            <Button
-              dispatch={dispatch}
-              answer={state.answer}
-              index={state.curIndex}
-              amountOfQuestions={state.questions.length}
-            />
+            <div>
+              <Timer dispatch={dispatch} />
+              <Button
+                dispatch={dispatch}
+                answer={state.answer}
+                index={state.curIndex}
+                amountOfQuestions={state.questions.length}
+              />
+            </div>
           </>
         )}
         {state.status === 'finished' && (
