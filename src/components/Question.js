@@ -9,9 +9,9 @@ export default function Question({
 }) {
   const { question, options, correctOption, points } = questionData;
 
-  //   console.log(curIndex);
-  //   if (curIndex === amountOfQuestions) {
-  //     return;
+  //   //   console.log(curIndex);
+  //   if (options[curIndex] === correctOption) {
+  //     console.log('++');
   //   }
 
   return (

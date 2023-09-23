@@ -74,6 +74,11 @@ function App() {
       .catch((err) => dispatch({ type: 'dataFailed', payload: err }));
   }, []);
 
+  const maxPossiblePoints =
+    state.questions.length &&
+    state.questions.reduce((a, b) => a + +b.points, 0);
+  // console.log(state.questions, maxPossiblePoints);
+
   return (
     <div className='App'>
       <Header />
@@ -92,6 +97,9 @@ function App() {
               dispatch={dispatch}
               curIndex={state.curIndex}
               amountOfQuestions={state.questions.length}
+              points={state.points}
+              maxPossiblePoints={maxPossiblePoints}
+              answer={state.answer}
             />
             <Question
               amountOfQuestions={state.questions.length}
