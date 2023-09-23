@@ -18,6 +18,7 @@ const initialState = {
   curIndex: 0,
   answer: null,
   points: 0,
+  highscore: 0,
 };
 
 function reducer(state, action) {
@@ -57,7 +58,9 @@ function reducer(state, action) {
     case 'endQuiz':
       return {
         ...state,
-        status: 'inactive',
+        status: 'finished',
+        highscore:
+          state.points > state.highscore ? state.points : state.highscore,
       };
     default:
       throw new Error('unknown action');
@@ -109,10 +112,21 @@ function App() {
               curIndex={state.curIndex}
             />
 
-            <Button dispatch={dispatch} answer={state.answer} />
+            <Button
+              dispatch={dispatch}
+              answer={state.answer}
+              index={state.curIndex}
+              amountOfQuestions={state.questions.length}
+            />
           </>
         )}
-        {state.status === 'inactive' && <EndScreen />}
+        {state.status === 'finished' && (
+          <EndScreen
+            points={state.points}
+            maxPossiblePoints={maxPossiblePoints}
+            highscore={state.highscore}
+          />
+        )}
       </Main>
     </div>
   );
