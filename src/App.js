@@ -20,7 +20,10 @@ const initialState = {
   answer: null,
   points: 0,
   highscore: 0,
+  secondsRemaining: null,
 };
+
+const secsPerQuestion = 30;
 
 function reducer(state, action) {
   switch (action.type) {
@@ -37,8 +40,11 @@ function reducer(state, action) {
       };
     case 'startQuiz':
       return {
+        // ...state,
+        // status: 'active',
         ...state,
         status: 'active',
+        secondsRemaining: state.questions.length * secsPerQuestion,
       };
     case 'newAnswer':
       const question = state.questions.at(state.curIndex); // state.questions[state.curIndex]
@@ -76,6 +82,12 @@ function reducer(state, action) {
         answer: null,
         points: 0,
         highscore: 0,
+      };
+    case 'ticktack':
+      return {
+        ...state,
+        secondsRemaining: state.secondsRemaining - 1,
+        status: state.secondsRemaining === 0 ? 'finished' : state.status,
       };
     default:
       throw new Error('unknown action');
@@ -128,7 +140,10 @@ function App() {
             />
 
             <div>
-              <Timer dispatch={dispatch} />
+              <Timer
+                dispatch={dispatch}
+                secondsRemaining={state.secondsRemaining}
+              />
               <Button
                 dispatch={dispatch}
                 answer={state.answer}
