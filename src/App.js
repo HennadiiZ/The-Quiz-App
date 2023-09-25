@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useReducer } from 'react';
-// import DateCounter from './components/DateCounter';
+import questionsData from './questionsData/questionsData';
 import Header from './components/Header';
 import Main from './components/Main';
 import Loader from './components/Loader';
@@ -40,14 +40,12 @@ function reducer(state, action) {
       };
     case 'startQuiz':
       return {
-        // ...state,
-        // status: 'active',
         ...state,
         status: 'active',
         secondsRemaining: state.questions.length * secsPerQuestion,
       };
     case 'newAnswer':
-      const question = state.questions.at(state.curIndex); // state.questions[state.curIndex]
+      const question = state.questions.at(state.curIndex);
       return {
         ...state,
         answer: action.payload,
@@ -97,17 +95,22 @@ function reducer(state, action) {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // useEffect(() => {
+  //   fetch('http://localhost:8000/questions')
+  //     .then((res) => res.json())
+  //     .then((res) => dispatch({ type: 'dataReceived', payload: res }))
+  //     .catch((err) => dispatch({ type: 'dataFailed', payload: err }));
+  // }, []);
+
   useEffect(() => {
-    fetch('http://localhost:8000/questions')
-      .then((res) => res.json())
-      .then((res) => dispatch({ type: 'dataReceived', payload: res }))
-      .catch((err) => dispatch({ type: 'dataFailed', payload: err }));
+    dispatch({ type: 'dataReceived', payload: questionsData });
   }, []);
+
+  // dispatch({ type: 'dataReceived', payload: questionsData });
 
   const maxPossiblePoints =
     state.questions.length &&
     state.questions.reduce((a, b) => a + +b.points, 0);
-  // console.log(state.questions, maxPossiblePoints);
 
   return (
     <div className='App'>
