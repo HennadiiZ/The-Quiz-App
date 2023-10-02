@@ -38,15 +38,16 @@ body {
 }
 
 .main {
-  width: 50rem;
+  /* width: 50rem; */
 }
 
 .app-header {
-  width: 66rem;
+  /* width: 66rem; */
   margin-bottom: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
 }
 
 .error {
@@ -82,12 +83,14 @@ h4 {
   font-size: 2.2rem;
   font-weight: 600;
   margin-bottom: 2.4rem;
+  /* text-align: center; */
 }
 
 .start {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .progress {

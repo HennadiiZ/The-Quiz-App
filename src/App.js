@@ -113,7 +113,7 @@ function App() {
     state.questions.reduce((a, b) => a + +b.points, 0);
 
   return (
-    <div className='App'>
+    <div className='app'>
       <Header />
       <Main>
         {state.status === 'loading' && <Loader />}
