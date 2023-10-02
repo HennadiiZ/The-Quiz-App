@@ -4,11 +4,13 @@
   --color-medium: #ced4da;
   --color-light: #f1f3f5;
 
-  --color-theme: #1098ad;
-  --color-accent: #ffa94d;
+  /* --color-theme: #1098ad;
+  --color-accent: #ffa94d; */
+  --color-theme: #2bd14a;
+  --color-accent: #ce4d4d;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Codystar&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Codystar&display=swap'); */
 
 * {
   /* margin: 0; */
@@ -39,6 +41,19 @@ body {
 
 .main {
   /* width: 50rem; */
+  width: 60%;
+}
+
+@media (max-width: 767px) {
+  .main {
+    width: 80%;
+  }
+}
+
+@media (max-width: 500px) {
+  .main {
+    width: 90%;
+  }
 }
 
 .app-header {
@@ -180,7 +195,7 @@ progress {
   color: var(--color-light);
   border-radius: 100px;
   text-align: center;
-  padding: 2rem 0;
+  padding: 2rem;
   font-size: 2rem;
   font-weight: 500;
   margin-bottom: 1.6rem;
@@ -215,6 +230,10 @@ progress {
   border: 2px solid var(--color-dark);
   padding: 1.35rem 2.8rem;
   border-radius: 100px;
+}
+
+.footer-box {
+  background: #000;
 }
 
 /* CREDIT: https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje */

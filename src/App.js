@@ -142,7 +142,7 @@ function App() {
               curIndex={state.curIndex}
             />
 
-            <div>
+            <div className='footer-box'>
               <Timer
                 dispatch={dispatch}
                 secondsRemaining={state.secondsRemaining}
