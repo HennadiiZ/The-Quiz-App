@@ -1,38 +1,46 @@
-import React, { useContext } from 'react';
-import { QuizContext } from '../context/QuizContext';
+import { useQuiz } from '../context/QuizContext';
 
-export default function Progress({ maxPossiblePoints }) {
-  const {
-    questions,
-    status,
-    curIndex,
-    answer,
-    points,
-    highscore,
-    secondsRemaining,
-    //
-    startQuiz,
-    newAnswer,
-    nextQuestion,
-    endQuiz,
-    restart,
-    ticktack,
-  } = useContext(QuizContext);
+function Progress() {
+  const { index, numQuestions, points, maxPossiblePoints, answer } = useQuiz();
 
   return (
-    <div>
-      <progress
-        max={questions.length}
-        value={curIndex + Number(answer !== null)}
-      />
+    <header className='progress'>
+      <progress max={numQuestions} value={index + Number(answer !== null)} />
+
       <p>
-        Question <strong>{curIndex + 1}</strong>/{questions.length}
+        Question <strong>{index + 1}</strong> / {numQuestions}
       </p>
-      <header className='progress'>
-        <p>
-          <strong>{points}</strong> / {maxPossiblePoints}
-        </p>
-      </header>
-    </div>
+
+      <p>
+        <strong>{points}</strong> / {maxPossiblePoints}
+      </p>
+    </header>
   );
 }
+
+export default Progress;
+
+// import React, { useContext } from 'react';
+// import { QuizContext } from '../context/QuizContext';
+
+// export default function Progress() {
+//   const { questions, curIndex, answer, points, maxPossiblePoints } =
+//     useContext(QuizContext);
+
+//   return (
+//     <div>
+//       <progress
+//         max={questions.length}
+//         value={curIndex + Number(answer !== null)}
+//       />
+//       <p>
+//         Question <strong>{curIndex + 1}</strong>/{questions.length}
+//       </p>
+//       <header className='progress'>
+//         <p>
+//           <strong>{points}</strong> / {maxPossiblePoints}
+//         </p>
+//       </header>
+//     </div>
+//   );
+// }

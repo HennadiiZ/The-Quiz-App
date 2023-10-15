@@ -1,56 +1,89 @@
-import './App.css';
-import { useContext } from 'react';
-import { QuizContext, QuizProvider } from './context/QuizContext';
-import questionsData from './questionsData/questionsData';
+import { useQuiz } from './context/QuizContext';
 import Header from './components/Header';
 import Main from './components/Main';
 import Loader from './components/Loader';
 import Error from './components/Error';
 import StartScreen from './components/StartScreen';
 import Question from './components/Question';
-import Button from './components/Button';
 import Progress from './components/Progress';
-import EndScreen from './components/EndScreen';
+import FinishScreen from './components/EndScreen';
 import Timer from './components/Timer';
+import Button from './components/Button';
 
-function App() {
-  const { state } = useContext(QuizContext);
-
-  const maxPossiblePoints =
-    state.questions.length &&
-    state.questions.reduce((a, b) => a + +b.points, 0);
+export default function App() {
+  const { status } = useQuiz();
 
   return (
-    <QuizProvider>
-      <div className='app'>
-        <Header />
-        <Main>
-          {state.status === 'loading' && <Loader />}
-          {state.status === 'error' && <Error />}
-          {state.status === 'ready' && (
-            <StartScreen amountOfQuestions={state.questions.length} />
-          )}
-          {state.status === 'active' && (
-            <>
-              <Progress maxPossiblePoints={maxPossiblePoints} />
-              <Question />
+    <div className='app'>
+      <Header />
 
-              <div className='footer-box'>
-                <Timer />
-                <Button />
-              </div>
-            </>
-          )}
-          {state.status === 'finished' && (
-            <EndScreen maxPossiblePoints={maxPossiblePoints} />
-          )}
-        </Main>
-      </div>
-    </QuizProvider>
+      <Main>
+        {status === 'loading' && <Loader />}
+        {status === 'error' && <Error />}
+        {status === 'ready' && <StartScreen />}
+        {status === 'active' && (
+          <>
+            <Progress />
+            <Question />
+            {/* <Footer>
+              <Timer />
+              <NextButton />
+            </Footer> */}
+            <div className='footer-box'>
+              <Timer />
+              <Button />
+            </div>
+          </>
+        )}
+        {status === 'finished' && <FinishScreen />}
+      </Main>
+    </div>
   );
 }
 
-export default App;
+// import './App.css';
+// import { useContext } from 'react';
+// import { QuizContext, QuizProvider } from './context/QuizContext';
+// import questionsData from './questionsData/questionsData';
+// import Header from './components/Header';
+// import Main from './components/Main';
+// import Loader from './components/Loader';
+// import Error from './components/Error';
+// import StartScreen from './components/StartScreen';
+// import Question from './components/Question';
+// import Button from './components/Button';
+// import Progress from './components/Progress';
+// import EndScreen from './components/EndScreen';
+// import Timer from './components/Timer';
+
+// function App() {
+//   const { status } = useContext(QuizContext);
+
+//   return (
+//     <div className='app'>
+//       <Header />
+//       <Main>
+//         {status === 'loading' && <Loader />}
+//         {status === 'error' && <Error />}
+//         {status === 'ready' && <StartScreen />}
+//         {status === 'active' && (
+//           <>
+//             <Progress />
+//             <Question />
+
+//             <div className='footer-box'>
+//               <Timer />
+//               <Button />
+//             </div>
+//           </>
+//         )}
+//         {status === 'finished' && <EndScreen />}
+//       </Main>
+//     </div>
+//   );
+// }
+
+// export default App;
 
 // npm start
 // npm run server
