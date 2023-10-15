@@ -1,15 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { QuizContext } from '../context/QuizContext';
 
-export default function Timer({ dispatch, secondsRemaining }) {
+export default function Timer() {
+  const {
+    questions,
+    status,
+    curIndex,
+    answer,
+    points,
+    highscore,
+    secondsRemaining,
+    //
+    startQuiz,
+    newAnswer,
+    nextQuestion,
+    endQuiz,
+    restart,
+    ticktack,
+  } = useContext(QuizContext);
+
   const mins = Math.floor(secondsRemaining / 60);
   const seconds = secondsRemaining % 60;
+
   useEffect(() => {
     const intervalId = setInterval(() => {
-      dispatch({ type: 'ticktack' });
+      ticktack();
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [dispatch, secondsRemaining]);
+  }, [ticktack, secondsRemaining]);
 
   //   return <div className='timer'>{secondsRemaining}</div>;
   return (
@@ -20,6 +39,7 @@ export default function Timer({ dispatch, secondsRemaining }) {
     </div>
   );
 }
+//+
 
 // import React, { useState, useEffect } from 'react';
 

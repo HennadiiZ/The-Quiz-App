@@ -97,36 +97,39 @@ function QuizProvider({ children }) {
     dispatch({ type: 'dataReceived', payload: questionsData });
   }, []);
 
-  function dataReceived() {
-    console.log('check');
-  }
-
   function dataFailed() {
     console.log('check');
+    // dispatch({ type: });
   }
 
   function startQuiz() {
-    console.log('check');
+    console.log('startQuiz');
+    dispatch({ type: 'startQuiz' });
   }
 
-  function newAnswer() {
-    console.log('check');
+  function newAnswer(index) {
+    console.log('newAnswer');
+    dispatch({ type: 'newAnswer', payload: index });
   }
 
   function nextQuestion() {
-    console.log('check');
+    console.log('nextQuestion');
+    dispatch({ type: 'nextQuestion' });
   }
 
   function endQuiz() {
-    console.log('check');
+    console.log('endQuiz');
+    dispatch({ type: 'endQuiz' });
   }
 
   function restart() {
     console.log('check');
+    dispatch({ type: 'restart' });
   }
 
   function ticktack() {
     console.log('check');
+    dispatch({ type: 'ticktack' });
   }
 
   return (
@@ -139,6 +142,13 @@ function QuizProvider({ children }) {
         points,
         highscore,
         secondsRemaining,
+        //
+        startQuiz,
+        newAnswer,
+        nextQuestion,
+        endQuiz,
+        restart,
+        ticktack,
       }}
     >
       {children}

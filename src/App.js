@@ -11,7 +11,7 @@ import Button from './components/Button';
 import Progress from './components/Progress';
 import EndScreen from './components/EndScreen';
 import Timer from './components/Timer';
-import { QuizContext } from './context/QuizContext';
+import { QuizContext, QuizProvider } from './context/QuizContext';
 
 // const initialState = {
 //   questions: [],
@@ -104,7 +104,7 @@ function App() {
 
   // dispatch({ type: 'dataReceived', payload: questionsData });
 
-  const { user } = useContext(QuizContext);
+  const { state } = useContext(QuizContext);
 
   const maxPossiblePoints =
     state.questions.length &&
@@ -118,50 +118,21 @@ function App() {
           {state.status === 'loading' && <Loader />}
           {state.status === 'error' && <Error />}
           {state.status === 'ready' && (
-            <StartScreen
-              amountOfQuestions={state.questions.length}
-              dispatch={dispatch}
-            />
+            <StartScreen amountOfQuestions={state.questions.length} />
           )}
           {state.status === 'active' && (
             <>
-              <Progress
-                dispatch={dispatch}
-                curIndex={state.curIndex}
-                amountOfQuestions={state.questions.length}
-                points={state.points}
-                maxPossiblePoints={maxPossiblePoints}
-                answer={state.answer}
-              />
-              <Question
-                amountOfQuestions={state.questions.length}
-                questionData={state.questions[state.curIndex]}
-                dispatch={dispatch}
-                answer={state.answer}
-                curIndex={state.curIndex}
-              />
+              <Progress maxPossiblePoints={maxPossiblePoints} />
+              <Question />
 
               <div className='footer-box'>
-                <Timer
-                  dispatch={dispatch}
-                  secondsRemaining={state.secondsRemaining}
-                />
-                <Button
-                  dispatch={dispatch}
-                  answer={state.answer}
-                  index={state.curIndex}
-                  amountOfQuestions={state.questions.length}
-                />
+                <Timer />
+                <Button />
               </div>
             </>
           )}
           {state.status === 'finished' && (
-            <EndScreen
-              points={state.points}
-              maxPossiblePoints={maxPossiblePoints}
-              highscore={state.highscore}
-              dispatch={dispatch}
-            />
+            <EndScreen maxPossiblePoints={maxPossiblePoints} />
           )}
         </Main>
       </div>

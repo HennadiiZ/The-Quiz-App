@@ -1,13 +1,26 @@
+import { useContext } from 'react';
+import { QuizContext } from '../context/QuizContext';
 import OptionToAnswer from './OptionToAnswer';
 
-export default function Question({
-  amountOfQuestions,
-  questionData, // state.questions
-  dispatch,
-  answer,
-  curIndex,
-}) {
-  const { question, options, correctOption, points } = questionData;
+export default function Question({}) {
+  const {
+    questions,
+    status,
+    curIndex,
+    answer,
+    points,
+    highscore,
+    secondsRemaining,
+    //
+    startQuiz,
+    newAnswer,
+    nextQuestion,
+    endQuiz,
+    restart,
+    ticktack,
+  } = useContext(QuizContext);
+
+  const { question, options, correctOption } = questions;
 
   //   //   console.log(curIndex);
   //   if (options[curIndex] === correctOption) {
@@ -20,8 +33,6 @@ export default function Question({
       <div className='options'>
         {options.map((option, index) => (
           <OptionToAnswer
-            dispatch={dispatch}
-            answer={answer}
             index={index}
             option={option}
             correctOption={correctOption}

@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { QuizContext } from '../context/QuizContext';
 
-export default function Button({ dispatch, answer, index, amountOfQuestions }) {
+export default function Button() {
+  const {
+    questions,
+    status,
+    curIndex,
+    answer,
+    points,
+    highscore,
+    secondsRemaining,
+    //
+    startQuiz,
+    newAnswer,
+    nextQuestion,
+    endQuiz,
+    restart,
+    ticktack,
+  } = useContext(QuizContext);
+
   if (answer === null) {
     return null;
   }
 
-  if (index < amountOfQuestions - 1) {
+  if (curIndex < questions.length - 1) {
     return (
-      <button
-        className='btn btn-ui'
-        onClick={() => dispatch({ type: 'nextQuestion' })}
-      >
+      <button className='btn btn-ui' onClick={() => nextQuestion()}>
         next
       </button>
     );
   }
 
-  if (index === amountOfQuestions - 1) {
+  if (curIndex === questions.length - 1) {
     return (
-      <button
-        className='btn btn-ui'
-        onClick={() => dispatch({ type: 'endQuiz' })}
-      >
+      <button className='btn btn-ui' onClick={() => endQuiz()}>
         finish
       </button>
     );
   }
 }
+//+

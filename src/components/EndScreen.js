@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { QuizContext } from '../context/QuizContext';
 
-export default function EndScreen({
-  points,
-  maxPossiblePoints,
-  highscore,
-  dispatch,
-}) {
+export default function EndScreen({ maxPossiblePoints }) {
+  const {
+    questions,
+    status,
+    curIndex,
+    answer,
+    points,
+    highscore,
+    secondsRemaining,
+    //
+    startQuiz,
+    newAnswer,
+    nextQuestion,
+    endQuiz,
+    restart,
+    ticktack,
+  } = useContext(QuizContext);
+
   const percentage = (points / maxPossiblePoints) * 100;
   return (
     <>
@@ -16,10 +29,7 @@ export default function EndScreen({
       <div className='highscore'>(Highscore: {highscore} points)</div>
       {/*  */}
       <div className='start'>
-        <button
-          className='btn btn-ui'
-          onClick={() => dispatch({ type: 'restart' })}
-        >
+        <button className='btn btn-ui' onClick={() => restart()}>
           Restart
         </button>
       </div>
