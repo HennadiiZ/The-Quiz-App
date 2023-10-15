@@ -32,4 +32,3 @@ export default function OptionToAnswer({ option, index, correctOption }) {
     </button>
   );
 }
-//+

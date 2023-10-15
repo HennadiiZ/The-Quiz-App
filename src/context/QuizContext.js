@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import { secsPerQuestion } from '../constants/constants';
 import questionsData from '../questionsData/questionsData';
-// import { useNavigate } from 'react-router-dom';
 
 const QuizContext = createContext();
 
@@ -97,10 +96,9 @@ function QuizProvider({ children }) {
     dispatch({ type: 'dataReceived', payload: questionsData });
   }, []);
 
-  function dataFailed() {
-    console.log('check');
-    // dispatch({ type: });
-  }
+  // function dataFailed() {
+  //   console.log('check');
+  // }
 
   function startQuiz() {
     console.log('startQuiz');

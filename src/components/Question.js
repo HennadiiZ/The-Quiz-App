@@ -22,11 +22,6 @@ export default function Question({}) {
 
   const { question, options, correctOption } = questions;
 
-  //   //   console.log(curIndex);
-  //   if (options[curIndex] === correctOption) {
-  //     console.log('++');
-  //   }
-
   return (
     <div>
       <h4>{question}</h4>

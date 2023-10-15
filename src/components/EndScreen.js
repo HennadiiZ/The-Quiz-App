@@ -27,7 +27,7 @@ export default function EndScreen({ maxPossiblePoints }) {
         {Math.ceil(percentage)}%)
       </div>
       <div className='highscore'>(Highscore: {highscore} points)</div>
-      {/*  */}
+
       <div className='start'>
         <button className='btn btn-ui' onClick={() => restart()}>
           Restart
